@@ -1,0 +1,27 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Segoe UI', sans-serif; }
+
+header { display: flex; align-items: center; justify-content: space-between; background: #334e68; padding: 0.5rem 1rem; }
+header h1 { color: #f0f4f8; font-size: 1.75rem; }
+header .nav-buttons button { margin-left: 0.5rem; padding: 0.4rem 0.8rem; background: #486581; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+header .nav-buttons button:hover { background: #627d98; }
+
+.app-container { background: linear-gradient(135deg, #f0f4f8, #d9e2ec); min-height: 100vh; padding: 1rem; }
+
+.listing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+.mat-card { border-radius: 8px; }
+.mat-card-title { font-size: 1.25rem; color: #334e68; }
+.mat-card-image { height: 160px; object-fit: cover; }
+.mat-card-content { font-size: 0.95rem; color: #102a43; }
+.mat-card-actions button { margin-right: 0.5rem; }
+
+::ng-deep mat-toolbar.mat-toolbar {
+  background-color: #334e68 !important;
+}
+::ng-deep mat-toolbar.mat-toolbar .mat-toolbar-row,
+::ng-deep mat-toolbar.mat-toolbar .mat-toolbar-single-row {
+  color: #fff !important;
+}
+/* Utility */
+.hidden { display: none; }
