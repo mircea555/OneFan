@@ -1,0 +1,134 @@
+<div class="form-background">
+  <div class="form-container">
+    <h2>{{ isEdit ? "Edit Collectible" : "Add New Collectible" }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <!-- NAME -->
+      <div class="form-group">
+        <label for="name">
+          Name<span class="required">*</span>
+        </label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          [readonly]="isEdit"
+        />
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          [readonly]="isEdit"
+        ></textarea>
+      </div>
+
+      <!-- PRICE -->
+      <div class="form-group">
+        <label for="price">
+          Price (USD)<span class="required">*</span>
+        </label>
+        <input
+          id="price"
+          type="number"
+          step="0.01"
+          formControlName="price"
+        />
+      </div>
+
+      <!-- SPORT -->
+      <div class="form-group">
+        <label for="sport">Sport<span class="required">*</span></label>
+        <input
+          id="sport"
+          type="text"
+          formControlName="sport"
+          [readonly]="isEdit"
+        />
+      </div>
+
+      <!-- PLAYER -->
+      <div class="form-group">
+        <label for="player">Player<span class="required">*</span></label>
+        <input
+          id="player"
+          type="text"
+          formControlName="player"
+          [readonly]="isEdit"
+        />
+      </div>
+
+      <!-- CATEGORY -->
+      <div class="form-group">
+        <label for="category"
+        >Category<span class="required">*</span></label
+        >
+        <input
+          id="category"
+          type="text"
+          formControlName="category"
+          [readonly]="isEdit"
+        />
+      </div>
+
+      <!-- IMAGE UPLOAD -->
+      <div class="form-group">
+        <label for="image">Image<span class="required">*</span></label>
+        <input
+          id="image"
+          type="file"
+          (change)="onImageSelected($event)"
+          [disabled]="isEdit"
+          accept="image/*"
+        />
+        <div *ngIf="form.getRawValue().imageUrl" class="preview">
+          <p>
+            Current Image:
+            <code>{{ form.getRawValue().imageUrl }}</code>
+          </p>
+          <img
+            [src]="'http://localhost:8080' + form.getRawValue().imageUrl"
+            alt="Collectible Image"
+            class="preview-img"
+            (error)="form.getRawValue().imageUrl = ''"
+          />
+        </div>
+      </div>
+
+      <!-- CERTIFICATE UPLOAD -->
+      <div class="form-group">
+        <label for="certificate"
+        >Certificate<span class="required">*</span></label
+        >
+        <input
+          id="certificate"
+          type="file"
+          (change)="onCertSelected($event)"
+          [disabled]="isEdit"
+          accept="application/pdf"
+        />
+        <div *ngIf="form.getRawValue().certificateUrl" class="preview">
+          <p>
+            Current Certificate URL:
+            <code>{{ form.getRawValue().certificateUrl }}</code>
+          </p>
+        </div>
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <div class="form-group">
+        <button type="submit" [disabled]="loading">
+          {{ loading
+          ? (isEdit ? "Updating…" : "Creating…")
+          : (isEdit ? "Update Price" : "Create") }}
+        </button>
+      </div>
+
+      <!-- ERROR MESSAGE -->
+      <div *ngIf="error" class="error">{{ error }}</div>
+    </form>
+  </div>
+</div>

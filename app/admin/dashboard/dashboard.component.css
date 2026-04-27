@@ -1,0 +1,167 @@
+/* src/app/admin/dashboard/dashboard.component.css */
+
+/* ---------- HEADER BAR ---------- */
+.header-bar {
+  display: flex;
+  justify-content: space-between; /* keeps title on left, buttons centered */
+  align-items: center;
+  background-color: #334e68;      /* Rich navy background */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 43, 91, 0.15);
+}
+
+/* Left side: Title */
+.header-left h1 {
+  color: #f0f4f8;      /* Light slate text */
+  font-size: 1.75rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Center: Toggle Buttons */
+.header-center {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.header-center button {
+  background: #486581; /* Slightly lighter navy */
+  color: #fff;
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-center button:hover {
+  background: #627d98; /* Lighten on hover */
+}
+
+/* Remove any leftover logo styles */
+.header-right,
+.logo-container {
+  display: none !important;
+}
+
+/* ---------- PAGE BACKGROUND ---------- */
+.admin-wrapper {
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* … rest of your existing styles unchanged … */
+
+
+/* ---------- CARD SECTION ---------- */
+.card-section {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 43, 91, 0.1);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+/* Card Header */
+.card-header {
+  background: #334e68; /* Navy-blue */
+  padding: 0.75rem 1rem;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+/* Card Content (with a light-gray background) */
+.card-content {
+  background: #f7f9fb; /* Very light gray so content area is visible */
+  padding: 1rem;
+}
+
+/* Loading & Empty States */
+.loading,
+.empty-state {
+  text-align: center;
+  color: #627d98; /* Slate gray */
+  font-style: italic;
+}
+
+.error {
+  color: #c00;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* ---------- TABLE STYLING ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+thead th {
+  background: #486581; /* Medium navy */
+  color: #fff;
+  padding: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  font-weight: 600;
+}
+tbody td {
+  border-top: 1px solid #cdd9e5; /* Light slate */
+  padding: 0.6rem 0.75rem;
+  color: #102a43;
+  font-size: 0.95rem;
+}
+tbody tr:hover {
+  background: #f0f4f8;
+}
+
+/* ---------- BUTTONS IN TABLE ---------- */
+.btn-approve,
+.btn-reject {
+  margin-right: 0.5rem;
+  padding: 0.35rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-approve {
+  background: #4caf50; /* Green */
+  color: #fff;
+}
+.btn-approve:hover:not([disabled]) {
+  background: #43a047;
+}
+.btn-reject {
+  background: #f44336; /* Red */
+  color: #fff;
+}
+.btn-reject:hover:not([disabled]) {
+  background: #e53935;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---------- BLOCKCHAIN LOG ---------- */
+.blockchain-log {
+  background: #102a43; /* Very dark navy */
+  color: #f0f4f8;      /* Light slate */
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: Consolas, Menlo, monospace;
+  font-size: 0.9rem;
+  max-height: 200px;
+  overflow-y: auto;
+}

@@ -1,0 +1,40 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <div class="logo-container">
+      <img src="assets/OneFanLogo.png" alt="OneFan Logo" class="nav-logo" />
+    </div>
+    <span class="nav-title">OneFan – Discover Collectibles</span>
+  </div>
+
+  <div class="navbar-right">
+    <!-- exactly one Dashboard link per role -->
+    <button
+      *ngIf="auth.hasRole('ROLE_BUYER')"
+      class="nav-btn"
+      routerLink="/buyer/dashboard"
+      routerLinkActive="active"
+    >
+      Dashboard
+    </button>
+    <button
+      *ngIf="auth.hasRole('ROLE_SELLER')"
+      class="nav-btn"
+      routerLink="/seller/dashboard"
+      routerLinkActive="active"
+    >
+      Dashboard
+    </button>
+    <button
+      *ngIf="auth.hasRole('ROLE_ADMIN')"
+      class="nav-btn"
+      routerLink="/admin/dashboard"
+      routerLinkActive="active"
+    >
+      Dashboard
+    </button>
+
+    <button class="nav-btn logout" (click)="logout()">
+      Logout
+    </button>
+  </div>
+</nav>

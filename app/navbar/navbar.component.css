@@ -1,0 +1,64 @@
+.navbar {
+  background: #334e68;      /* rich navy, same as admin header */
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left side: logo container + title */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+/* white circle behind logo, just like admin header */
+.logo-container {
+  background: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+.nav-logo {
+  height: 48px;    /* slightly larger than before */
+  width: auto;
+}
+
+/* title next to it */
+.nav-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f0f4f8;  /* light slate, same as admin header H1 */
+}
+
+/* Right side: buttons */
+.navbar-right {
+  display: flex;
+  gap: 0.5rem;
+}
+.nav-btn {
+  background: #486581;      /* slightly lighter navy */
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.nav-btn:hover {
+  background: #627d98;      /* hover as in admin header toggles */
+}
+.nav-btn.active {
+  box-shadow: inset 0 -2px 0 0 #ffd600;
+}
+
+/* Logout in red */
+.logout {
+  background: #c62828;
+}
+.logout:hover {
+  background: #e53935;
+}

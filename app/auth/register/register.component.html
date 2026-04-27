@@ -1,0 +1,123 @@
+<div class="register-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="onSubmit()" #regForm="ngForm" novalidate>
+
+    <!-- USERNAME -->
+    <div>
+      <label>Username</label>
+      <input
+        type="text"
+        name="username"
+        required
+        [(ngModel)]="form.username"
+        #usernameModel="ngModel"
+      >
+      <div *ngIf="usernameModel.invalid && (usernameModel.dirty || usernameModel.touched)" class="error">
+        Username is required.
+      </div>
+    </div>
+
+    <!-- EMAIL -->
+    <div>
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        required
+        [(ngModel)]="form.email"
+        #emailModel="ngModel"
+      >
+      <div *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)" class="error">
+        <div *ngIf="emailModel.errors?.['required']">Email is required.</div>
+        <div *ngIf="emailModel.errors?.['email']">Must be a valid email address.</div>
+        <div *ngIf="emailModel.errors?.['pattern']">
+          Email must end in <code>@gmail.com</code>, <code>@yahoo.com</code>, <code>@hotmail.com</code>, <code>@outlook.com</code> or <code>@live.com</code>.
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSWORD -->
+    <div>
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        required
+        minlength="8"
+        pattern="^(?=.*[A-Z])(?=.*[!@#$%^&*]).+$"
+        [(ngModel)]="form.password"
+        #passwordModel="ngModel"
+      >
+      <div *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)" class="error">
+        <div *ngIf="passwordModel.errors?.['required']">Password is required.</div>
+        <div *ngIf="passwordModel.errors?.['minlength']">
+          Minimum length is 8 characters.
+        </div>
+        <div *ngIf="passwordModel.errors?.['pattern']">
+          Must contain at least one uppercase letter and one special character (!@#$%^&*).
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRM PASSWORD -->
+    <div>
+      <label>Confirm Password</label>
+      <input
+        type="password"
+        name="confirmPassword"
+        required
+        [(ngModel)]="form.confirmPassword"
+        #confirmModel="ngModel"
+      >
+      <div *ngIf="confirmModel.invalid && (confirmModel.dirty || confirmModel.touched)" class="error">
+        Confirming password is required.
+      </div>
+      <div *ngIf="
+            form.password &&
+            form.confirmPassword &&
+            form.password !== form.confirmPassword
+          " class="error">
+        Passwords do not match.
+      </div>
+    </div>
+
+    <!-- ROLE -->
+    <div>
+      <label>Role</label>
+      <select
+        name="role"
+        required
+        [(ngModel)]="form.role"
+        #roleModel="ngModel"
+      >
+        <option value="">-- Select role --</option>
+        <option value="buyer">Buyer</option>
+        <option value="seller">Seller</option>
+        <option value="admin">Admin</option>
+      </select>
+      <div *ngIf="roleModel.invalid && (roleModel.dirty || roleModel.touched)" class="error">
+        Please select a role.
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <button
+      type="submit"
+      [disabled]="
+        regForm.invalid ||
+        form.password !== form.confirmPassword
+      "
+    >
+      Register
+    </button>
+
+    <!-- MESSAGES -->
+    <div *ngIf="message" class="message">{{ message }}</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+
+  <div style="margin-top:20px;">
+    Already have an account?
+    <a routerLink="auth/login">Login</a>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="seller-background">
+  <div class="seller-header-with-logo">
+    <h2>Your Collectibles</h2>
+    <button class="btn-add" (click)="onAddNew()">+ Add New Collectible</button>
+  </div>
+
+  <div class="seller-card">
+    <div *ngIf="loading" class="seller-loading">Loading…</div>
+    <div *ngIf="error" class="seller-error">{{ error }}</div>
+
+    <div *ngIf="!loading && collectibles.length" class="collectible-grid">
+      <div class="collectible-card" *ngFor="let col of collectibles">
+        <img
+          *ngIf="col.imageUrl"
+          class="card-image"
+          [src]="'http://localhost:8080' + col.imageUrl"
+          alt="Collectible Image"
+          (error)="col.imageLoadError = true"
+        />
+        <div *ngIf="!col.imageUrl || col.imageLoadError" class="card-placeholder">
+          No Image
+        </div>
+
+        <div class="card-details">
+          <p><strong>ID:</strong> {{ col.id }}</p>
+          <p><strong>Name:</strong> {{ col.name }}</p>
+          <p><strong>Price:</strong> \${{ col.price }}</p>
+          <p>
+            <strong>Approved:</strong>
+            {{ col.approved === null ? "Pending" : col.approved ? "Yes" : "No" }}
+          </p>
+          <p><strong>Authenticated:</strong> {{ col.authenticated ? "Yes" : "No" }}</p>
+          <p><strong>Sold:</strong> {{ col.sold ? "Yes" : "No" }}</p>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-edit" (click)="onEdit(col.id)">Edit</button>
+          <button class="btn-delete" (click)="onDelete(col.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && collectibles.length === 0" class="empty-state">
+      You have no collectibles. Click “+ Add New Collectible” to begin.
+    </div>
+  </div>
+</div>

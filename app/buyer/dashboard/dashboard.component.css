@@ -1,0 +1,178 @@
+.buyer-background {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e1ecf7 50%, #f0f4f8 100%);
+  padding: 1rem 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #102a43;
+}
+
+.buyer-header {
+  max-width: 960px;            /* constrain width */
+  margin: 0 auto;              /* center on page */
+  background: #334e68;         /* dark-navy matches toolbar */
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+/* split the two buttons to opposite ends */
+.tab-left {
+  margin-right: auto;
+}
+.tab-right {
+  margin-left: auto;
+}
+
+.tab-btn {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.tab-btn.active {
+  background: #1565c0;
+}
+.tab-btn:hover {
+  background: #0d47a1;
+}
+.header-logo { height: 48px; width: auto; margin-left: 1rem; object-fit: contain; }
+
+.buyer-card {
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 16px rgba(0, 43, 91, 0.1);
+  padding: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.filter-section label {
+  font-weight: 600;
+  color: #334e68;
+}
+.filter-section input[type="text"] {
+  margin-left: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #bcccdc;
+  border-radius: 4px;
+}
+.btn-filter {
+  background: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-filter:hover { background: #b3b3b3; }
+
+.buyer-loading,
+.buyer-error,
+.empty-state {
+  text-align: center;
+  font-style: italic;
+  padding: 1rem 0;
+}
+.buyer-error { color: #d32f2f; }
+
+.collectible-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+.collectible-card {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 43, 91, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.pending-badge {
+  background: #ffd600;
+  color: #222;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 4px 12px;
+  border-radius: 6px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* 5:3 aspect */
+  background: #f0f4f8;
+}
+.card-image {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.card-placeholder {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #e3eaf0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: #708090; font-size: 1rem; font-style: italic;
+}
+
+.card-details { padding: 0.75rem 1rem; flex-grow: 1; }
+.card-details h3 { margin: 0 0 0.5rem 0; color: #334e68; font-size: 1.1rem; }
+.card-details p { margin: 0.2rem 0; color: #102a43; font-size: 0.95rem; }
+
+.auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #2e7d32;
+  font-weight: 600;
+}
+.auth-icon { height: 16px; width: auto; }
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e1e8ed;
+  justify-content: center;
+}
+.btn-verify, .btn-buy {
+  flex: 1;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.97rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: 600;
+  color: #fff;
+}
+.btn-verify { background: #1976d2; }
+.btn-verify:hover:not([disabled]) { background: #1565c0; }
+.btn-verify[disabled] { background: #a0a0a0; cursor: not-allowed; }
+.btn-buy { background: #2e7d32; }
+.btn-buy:hover:not([disabled]) { background: #276a25; }
+.btn-buy[disabled] { background: #a0a0a0; cursor: not-allowed; }
+
+/* Responsive */
+@media (max-width: 576px) {
+  .filter-section { flex-direction: column; }
+}

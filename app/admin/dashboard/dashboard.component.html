@@ -1,0 +1,147 @@
+<!-- src/app/admin/dashboard/dashboard.component.html -->
+<div class="admin-wrapper">
+  <!-- ================ HEADER BAR ================ -->
+  <div class="header-bar">
+    <!-- Left: Title -->
+    <div class="header-left">
+      <h1>Admin Dashboard</h1>
+    </div>
+
+    <!-- Center: Toggle Buttons -->
+    <div class="header-center">
+      <button (click)="showUsers = !showUsers">
+        {{ showUsers ? 'Hide Users' : 'Show Users' }}
+      </button>
+      <button (click)="showCollectibles = !showCollectibles">
+        {{ showCollectibles ? 'Hide Collectibles' : 'Show Collectibles' }}
+      </button>
+      <button (click)="showLog = !showLog">
+        {{ showLog ? 'Hide Log' : 'Show Log' }}
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ================ USERS CARD ================ -->
+  <div class="card-section" *ngIf="showUsers">
+    <div class="card-header">
+      <h2>All Users</h2>
+    </div>
+    <div class="card-content">
+      <!-- Show a grayish box even while loading -->
+      <div *ngIf="loadingUsers" class="loading">Loading users…</div>
+      <div *ngIf="error" class="error">{{ error }}</div>
+
+      <!-- Table (will populate once data arrives) -->
+      <table *ngIf="!loadingUsers && users.length">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Roles</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+              <span *ngFor="let r of user.roles; let last = last">
+                {{ r.name || r }}<span *ngIf="!last">, </span>
+              </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <!-- Empty state if no users exist -->
+      <div *ngIf="!loadingUsers && users.length === 0" class="empty-state">
+        No users found.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================ COLLECTIBLES CARD ================ -->
+  <div class="card-section" *ngIf="showCollectibles">
+    <div class="card-header">
+      <h2>All Collectibles</h2>
+    </div>
+    <div class="card-content">
+      <div *ngIf="loadingCollectibles" class="loading">Loading collectibles…</div>
+      <div *ngIf="errorCollectibles" class="error">{{ errorCollectibles }}</div>
+
+      <table *ngIf="!loadingCollectibles && collectibles.length">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Seller ID</th>
+          <th>Approved</th>
+          <th>Authenticated</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let col of collectibles">
+          <td>{{ col.id }}</td>
+          <td>{{ col.name }}</td>
+          <td>{{ col.sellerId }}</td>
+          <td>
+            {{ col.approved === null
+            ? 'Pending'
+            : col.approved
+              ? 'Yes'
+              : 'No' }}
+          </td>
+          <td>
+            <button
+              class="btn-approve"
+              (click)="approve(col.id)"
+              [disabled]="col.approved !== null"
+            >
+              Approve
+            </button>
+            <button
+              class="btn-reject"
+              (click)="reject(col.id)"
+              [disabled]="col.approved !== null"
+            >
+              Reject
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!loadingCollectibles && collectibles.length === 0" class="empty-state">
+        No collectibles found.
+      </div>
+    </div>
+  </div>
+
+  <!-- ================ BLOCKCHAIN LOG CARD ================ -->
+  <div class="card-section" *ngIf="showLog">
+    <div class="card-header">
+      <h2>Log</h2>
+    </div>
+    <div class="card-content">
+      <div *ngIf="loadingLog" class="loading">Loading log…</div>
+      <div *ngIf="errorLog" class="error">{{ errorLog }}</div>
+
+      <pre
+        *ngIf="!loadingLog && blockchainLog.length"
+        class="blockchain-log"
+      >
+<ng-container *ngFor="let line of blockchainLog">
+  {{ line }}<br />
+</ng-container>
+      </pre>
+
+      <div *ngIf="!loadingLog && blockchainLog.length === 0" class="empty-state">
+        No blockchain log entries found.
+      </div>
+    </div>
+  </div>
+</div>

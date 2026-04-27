@@ -1,0 +1,124 @@
+<div class="buyer-background">
+  <div class="buyer-header">
+    <div class="tab-left">
+      <button class="tab-btn" [class.active]="!showOwnedTab" (click)="switchToBrowse()">Browse All</button>
+    </div>
+    <div class="tab-right">
+      <button class="tab-btn" [class.active]="showOwnedTab" (click)="switchToOwned()">My Collection</button>
+    </div>
+  </div>
+
+  <div class="buyer-card">
+    <!-- Browse All Tab -->
+    <ng-container *ngIf="!showOwnedTab">
+      <div class="filter-section">
+        <label>
+          Player:
+          <input type="text" [(ngModel)]="filterPlayer" (ngModelChange)="applyFilters()" placeholder="e.g. Lionel Messi" />
+        </label>
+        <label>
+          Sport:
+          <input type="text" [(ngModel)]="filterSport" (ngModelChange)="applyFilters()" placeholder="e.g. Soccer" />
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="filterAuthenticatedOnly" (change)="applyFilters()" />
+          Only Authenticated
+        </label>
+        <button class="btn-filter" (click)="resetFilters()">Reset</button>
+      </div>
+
+      <div *ngIf="loadingAll" class="buyer-loading">Loading…</div>
+      <div *ngIf="errorAll" class="buyer-error">{{ errorAll }}</div>
+      <div *ngIf="!loadingAll && filteredList.length === 0 && !errorAll" class="empty-state">
+        No collectibles match your filters.
+      </div>
+
+      <div *ngIf="!loadingAll && filteredList.length" class="collectible-grid">
+        <div class="collectible-card" *ngFor="let c of filteredList">
+          <div *ngIf="c.approved === null" class="pending-badge">Pending Approval</div>
+          <div class="image-wrapper">
+            <img
+              *ngIf="c.imageUrl && !c.imageLoadError"
+              [src]="'http://localhost:8080' + c.imageUrl"
+              alt="{{ c.name }}"
+              class="card-image"
+              (error)="c.imageLoadError = true"
+            />
+            <div *ngIf="!c.imageUrl || c.imageLoadError" class="card-placeholder">
+              <img src="assets/OneFanLogo.png" style="width:48px;margin-bottom:6px" /><br />
+              No Image
+            </div>
+          </div>
+          <div class="card-details">
+            <h3>{{ c.name }}</h3>
+            <p><strong>Player:</strong> {{ c.player }}</p>
+            <p><strong>Sport:</strong> {{ c.sport }}</p>
+            <p><strong>Price:</strong> \${{ c.price }}</p>
+            <p>
+              <strong>Authenticated:</strong>
+              <span *ngIf="c.authenticated" class="auth-badge">
+                <img src="assets/OneFanLogo.png" alt="✓" class="auth-icon" /> Verified
+              </span>
+              <span *ngIf="!c.authenticated">No</span>
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-verify" [disabled]="c.authenticated" (click)="onVerify(c)">
+              {{ c.authenticated ? 'Verified' : 'Verify' }}
+            </button>
+            <button
+              class="btn-buy"
+              [disabled]="c.sold"
+              (click)="onBuy(c)"
+              [title]="!c.approved ? 'Not yet approved – may not be authentic' : ''"
+            >
+              {{ c.sold ? 'Sold Out' : 'Buy' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- My Collection Tab -->
+    <ng-container *ngIf="showOwnedTab">
+      <div *ngIf="loadingOwned" class="buyer-loading">Loading…</div>
+      <div *ngIf="errorOwned" class="buyer-error">{{ errorOwned }}</div>
+      <div *ngIf="!loadingOwned && myCollection.length === 0 && !errorOwned" class="empty-state">
+        You do not own any collectibles yet.
+      </div>
+
+      <div *ngIf="!loadingOwned && myCollection.length" class="collectible-grid">
+        <div class="collectible-card" *ngFor="let c of myCollection">
+          <div *ngIf="c.approved === null" class="pending-badge">Pending Approval</div>
+          <div class="image-wrapper">
+            <img
+              *ngIf="c.imageUrl && !c.imageLoadError"
+              [src]="'http://localhost:8080' + c.imageUrl"
+              alt="{{ c.name }}"
+              class="card-image"
+              (error)="c.imageLoadError = true"
+            />
+            <div *ngIf="!c.imageUrl || c.imageLoadError" class="card-placeholder">
+              <img src="assets/OneFanLogo.png" style="width:48px;margin-bottom:6px" /><br />
+              No Image
+            </div>
+          </div>
+          <div class="card-details">
+            <h3>{{ c.name }}</h3>
+            <p><strong>Player:</strong> {{ c.player }}</p>
+            <p><strong>Sport:</strong> {{ c.sport }}</p>
+            <p><strong>Price:</strong> \${{ c.price }}</p>
+            <p>
+              <strong>Authenticated:</strong>
+              <span *ngIf="c.authenticated" class="auth-badge">
+                <img src="assets/OneFanLogo.png" alt="✓" class="auth-icon" /> Verified
+              </span>
+              <span *ngIf="!c.authenticated">No</span>
+            </p>
+            <p><strong>Sold:</strong> {{ c.sold ? 'Yes' : 'No' }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
