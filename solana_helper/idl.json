@@ -1,0 +1,130 @@
+{
+  "address": "3JD4EfpF9ouiGy1qpaeuocYbkZh7ghjfBBMBg4nAxEVv",
+  "metadata": {
+    "name": "collectible_auth_program",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "An Anchor‐based Solana program that stores a 32‐byte hash on chain."
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "store_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  97,
+                  115,
+                  104,
+                  115,
+                  116,
+                  111,
+                  114,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "store_hash",
+      "discriminator": [
+        226,
+        95,
+        183,
+        170,
+        76,
+        30,
+        64,
+        133
+      ],
+      "accounts": [
+        {
+          "name": "store_account",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "HashStore",
+      "discriminator": [
+        31,
+        231,
+        235,
+        108,
+        168,
+        35,
+        128,
+        134
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "HashStore",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
